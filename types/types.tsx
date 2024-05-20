@@ -1,5 +1,43 @@
 type IncomeTreatment = 'Acc' | 'Dist' | 'Inc' | 'Other';
-type Strategy =
+
+export const Strategies = [
+  'Thematic',
+  'Factors',
+  'Equity Income',
+  'Capital Strength',
+  'Currency Hedge',
+  'ESG',
+  'Active Management',
+  'Growth Investing',
+  'Value Investing',
+  'Momentum Investing',
+  'Contrarian Investing',
+  'Passive Management',
+  'Index Investing',
+  'Balanced Funds',
+  'Target-Date Funds',
+  'High Yield Investing',
+  'Municipal Bond Investing',
+  'Treasury Bond Investing',
+  'Hedge Fund Strategies',
+  'Private Equity',
+  'Real Assets',
+  'Algorithmic Trading',
+  'Statistical Arbitrage',
+  'Sector Rotation',
+  'Global and International Investing',
+  'Dividend Growth',
+  'Sustainable Investing',
+  'Impact Investing',
+  'Socially Responsible Investing (SRI)',
+  'Hedging',
+  'Risk Parity',
+  'Bond Laddering',
+  'Covered Call Writing',
+  'Other',
+];
+
+export type Strategy =
   | 'Thematic'
   | 'Factors'
   | 'Equity Income'
@@ -35,7 +73,7 @@ type Strategy =
   | 'Covered Call Writing'
   | 'Other';
 
-type AssetClass =
+export type AssetClass =
   | 'Equity'
   | 'Fixed Income'
   | 'Property'
@@ -56,7 +94,7 @@ type AssetClass =
   | 'Convertible'
   | 'Other';
 
-type Style =
+export type Style =
   | 'Active'
   | 'Index'
   | 'Passive'
@@ -75,7 +113,7 @@ type Style =
   | 'Carbon Negative'
   | 'Carbon Positive';
 
-type Region =
+export type Region =
   | 'North America'
   | 'Europe'
   | 'Asia'

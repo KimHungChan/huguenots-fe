@@ -1,6 +1,5 @@
 import { Product } from '../types/types';
 
-// random table data using real funds based of the Product type
 const tableData: Array<Product> = [
   {
     fundName: 'iShares MSCI World',
