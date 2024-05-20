@@ -46,7 +46,7 @@ const styles: Array<string> = [
 
 const Table: React.FC<Props> = ({ tableData }) => {
   const [search, setSearch] = useState<string>('');
-  //   const [strategy, setStrategy] = useState('');
+
   // set initial state of strategy to be an object with all strategies set to false
   const [strategyState, setStrategyState] = useState<Record<Strategy, boolean>>(
     Strategies.reduce(
@@ -55,8 +55,6 @@ const Table: React.FC<Props> = ({ tableData }) => {
     )
   );
   const [strategyFilters, setStrategyFilters] = useState<Array<Strategy>>([]);
-  console.log(strategyState);
-
   const [strategyDropdown, toggleStrategyDropdown] = useState(false);
   //   const [assetClass, setAssetClass] = useState<Array<AssetClass>>([]);
   //   const [region, setRegion] = useState<Array<Region>>();
@@ -85,7 +83,11 @@ const Table: React.FC<Props> = ({ tableData }) => {
     </div>
   );
 
-  const filterWidgets = () => (
+  const filterWidget = <T extends string | number | symbol>(
+    filterName: string,
+    setFilterState: React.Dispatch<React.SetStateAction<Record<T, boolean>>>,
+    setFilter: React.Dispatch<React.SetStateAction<Array<T>>>
+  ) => (
     <div className="flex gap-4 mb-4">
       <div className="flex flex-col gap-2">
         <fieldset>
@@ -94,7 +96,9 @@ const Table: React.FC<Props> = ({ tableData }) => {
             onClick={() => toggleStrategyDropdown((prevState) => !prevState)}
           >
             <div className="flex justify-between items-center">
-              <span className="h-4 text-sm flex items-center">Strategy</span>
+              <span className="h-4 text-sm flex items-center">
+                {filterName}
+              </span>
               <Image
                 src="/arrow-down-sign.png"
                 alt="Arrow down sign"
@@ -109,29 +113,29 @@ const Table: React.FC<Props> = ({ tableData }) => {
               !strategyDropdown && 'invisible'
             } absolute bg-white w-44 max-h-56 overflow-y-auto border border-gray-300 rounded z-10 scrollbar shadow-lg`}
           >
-            {Object.keys(strategyState).map((strategy, index) => (
-              <fieldset key={strategy} className="m-2">
+            {Object.keys(strategyState).map((filterState, index) => (
+              <fieldset key={filterState} className="m-2">
                 <input
                   type="checkbox"
-                  id={strategy}
-                  name={strategy}
-                  value={strategy}
+                  id={filterState}
+                  name={filterState}
+                  value={filterState}
                   onChange={(e) => {
-                    setStrategyState((prevState) => ({
+                    setFilterState((prevState) => ({
                       ...prevState,
-                      [strategy]: e.target.checked,
+                      [filterState]: e.target.checked,
                     }));
-                    setStrategyFilters((prevState) => {
+                    setFilter((prevState) => {
                       if (e.target.checked) {
-                        return [...prevState, strategy as Strategy];
+                        return [...prevState, filterState as T];
                       } else {
-                        return prevState.filter((item) => item !== strategy);
+                        return prevState.filter((item) => item !== filterState);
                       }
                     });
                   }}
                   className="mr-2"
                 />
-                <label htmlFor={strategy}>{strategy}</label>
+                <label htmlFor={filterState}>{filterState}</label>
               </fieldset>
             ))}
           </div>
@@ -140,6 +144,9 @@ const Table: React.FC<Props> = ({ tableData }) => {
     </div>
   );
 
+  const filterWidgets = () => (
+    <>{filterWidget('STRATEGY', setStrategyState, setStrategyFilters)}</>
+  );
   return (
     <div className="flex flex-col">
       {searchBar()}
