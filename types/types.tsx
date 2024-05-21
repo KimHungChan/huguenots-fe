@@ -73,47 +73,166 @@ export type Strategy =
   | 'Covered Call Writing'
   | 'Other';
 
-export const AssetClasses = [
-  'Equity',
-  'Fixed Income',
-  'Property',
-  'Cash',
+export const AssetClasses: Array<AssetClass> = [
+  'All Cap',
+  'Large Cap',
+  'Mid Cap',
+  'Small Cap',
+  'Micro Cap',
+  'Mega Cap',
+  'Growth',
+  'Value',
+  'Dividend',
+  'Government',
+  'Currency',
+  'Corporate',
+  'Municipal',
+  'High Yield',
+  'Emerging Markets',
+  'Mortgage-Backed',
+  'Asset-Backed',
+  'Convertible',
+  'Preferred',
+  'Inflation-Protected',
+  'Floating Rate',
+  'Short-Term',
+  'Intermediate-Term',
+  'Long-Term',
+  'Real Estate',
   'Commodities',
-  'Multi Asset',
-  'Derivatives',
+  'Infrastructure',
   'Hedge Fund',
   'Private Equity',
-  'Infrastructure',
-  'Foreign currencies',
-  'Cryptocurrency',
-  'Money Market',
-  'Real Estate',
   'Venture Capital',
   'Private Debt',
   'Credit',
-  'Convertible',
+  'Derivatives',
+  'Balanced',
+  'Target-Date',
+  'Asset Allocation',
+  'Risk Parity',
   'Other',
 ];
+// export const AssetClasses = {
+//   equity: [
+//     'All Cap',
+//     'Large Cap',
+//     'Mid Cap',
+//     'Small Cap',
+//     'Micro Cap',
+//     'Mega Cap',
+//     'Growth',
+//     'Value',
+//     'Dividend',
+//   ],
+//   fixedIncome: [
+//     'Government',
+//     'Currency',
+//     'Corporate',
+//     'Municipal',
+//     'High Yield',
+//     'Emerging Markets',
+//     'Mortgage-Backed',
+//     'Asset-Backed',
+//     'Convertible',
+//     'Preferred',
+//     'Inflation-Protected',
+//     'Floating Rate',
+//     'Short-Term',
+//     'Intermediate-Term',
+//     'Long-Term',
+//   ],
+//   realAssets: ['Real Estate', 'Commodities', 'Infrastructure'],
+//   alternatives: [
+//     'Hedge Fund',
+//     'Private Equity',
+//     'Venture Capital',
+//     'Private Debt',
+//     'Credit',
+//     'Derivatives',
+//     'Other',
+//   ],
+//   multiAsset: ['Balanced', 'Target-Date', 'Asset Allocation', 'Risk Parity'],
+// };
 
+// export const AssetClassesInitial = {
+//   'All Cap': false,
+//   'Large Cap': false,
+//   'Mid Cap': false,
+//   'Small Cap': false,
+//   'Micro Cap': false,
+//   'Mega Cap': false,
+//   Growth: false,
+//   Value: false,
+//   Dividend: false,
+//   Government: false,
+//   Currency: false,
+//   Corporate: false,
+//   Municipal: false,
+//   'High Yield': false,
+//   'Emerging Markets': false,
+//   'Mortgage-Backed': false,
+//   'Asset-Backed': false,
+//   Convertible: false,
+//   Preferred: false,
+//   'Inflation-Protected': false,
+//   'Floating Rate': false,
+//   'Short-Term': false,
+//   'Intermediate-Term': false,
+//   'Long-Term': false,
+//   'Real Estate': false,
+//   Commodities: false,
+//   Infrastructure: false,
+//   'Hedge Fund': false,
+//   'Private Equity': false,
+//   'Venture Capital': false,
+//   'Private Debt': false,
+//   Credit: false,
+//   Derivatives: false,
+//   Balanced: false,
+//   'Target-Date': false,
+//   'Asset Allocation': false,
+//   'Risk Parity': false,
+//   Other: false,
+// };
 export type AssetClass =
-  | 'Equity'
-  | 'Fixed Income'
-  | 'Property'
-  | 'Cash'
+  | 'All Cap'
+  | 'Large Cap'
+  | 'Mid Cap'
+  | 'Small Cap'
+  | 'Micro Cap'
+  | 'Mega Cap'
+  | 'Growth'
+  | 'Value'
+  | 'Dividend'
+  | 'Government'
+  | 'Currency'
+  | 'Corporate'
+  | 'Municipal'
+  | 'High Yield'
+  | 'Emerging Markets'
+  | 'Mortgage-Backed'
+  | 'Asset-Backed'
+  | 'Convertible'
+  | 'Preferred'
+  | 'Inflation-Protected'
+  | 'Floating Rate'
+  | 'Short-Term'
+  | 'Intermediate-Term'
+  | 'Long-Term'
+  | 'Real Estate'
   | 'Commodities'
-  | 'Multi Asset'
-  | 'Derivatives'
+  | 'Infrastructure'
   | 'Hedge Fund'
   | 'Private Equity'
-  | 'Infrastructure'
-  | 'Foreign currencies'
-  | 'Cryptocurrency'
-  | 'Money Market'
-  | 'Real Estate'
   | 'Venture Capital'
   | 'Private Debt'
   | 'Credit'
-  | 'Convertible'
+  | 'Derivatives'
+  | 'Balanced'
+  | 'Target-Date'
+  | 'Asset Allocation'
+  | 'Risk Parity'
   | 'Other';
 
 export type Style =
@@ -134,6 +253,37 @@ export type Style =
   | 'Carbon Neutral'
   | 'Carbon Negative'
   | 'Carbon Positive';
+
+export const Styles: Array<Style> = [
+  'Active',
+  'Index',
+  'Passive',
+  'Smart Beta',
+  'Factor',
+  'Quant',
+  'Thematic',
+  'ESG',
+  'Sustainable',
+  'Impact',
+  'Ethical',
+  'Green',
+  'Clean',
+  'Renewable',
+  'Carbon Neutral',
+  'Carbon Negative',
+  'Carbon Positive',
+];
+
+export const Regions: Array<Region> = [
+  'North America',
+  'Europe',
+  'Asia',
+  'South America',
+  'Africa',
+  'Australia',
+  'Antarctica',
+  'Other',
+];
 
 export type Region =
   | 'North America'

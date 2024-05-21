@@ -5,8 +5,10 @@ import {
   AssetClasses,
   Product,
   Region,
+  Regions,
   Strategy,
   Style,
+  Styles,
   Strategies,
 } from '../../types/types';
 import Image from 'next/image';
@@ -26,26 +28,6 @@ const tableHeaders = {
   style: 'Style',
 };
 
-const styles: Array<string> = [
-  'Active',
-  'Index',
-  'Passive',
-  'Smart Beta',
-  'Factor',
-  'Quant',
-  'Thematic',
-  'ESG',
-  'Sustainable',
-  'Impact',
-  'Ethical',
-  'Green',
-  'Clean',
-  'Renewable',
-  'Carbon Neutral',
-  'Carbon Negative',
-  'Carbon Positive',
-];
-
 const Table: React.FC<Props> = ({ tableData }) => {
   const [search, setSearch] = useState<string>('');
 
@@ -58,6 +40,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
   );
   const [strategyFilters, setStrategyFilters] = useState<Array<Strategy>>([]);
   const [strategyDropdown, toggleStrategyDropdown] = useState(false);
+
   const [assetClass, setAssetClass] = useState<Record<AssetClass, boolean>>(
     AssetClasses.reduce(
       (accumulator, current) => ({ ...accumulator, [current]: false }),
@@ -69,10 +52,23 @@ const Table: React.FC<Props> = ({ tableData }) => {
   );
   const [assetClassDropdown, toggleAssetClassDropdown] = useState(false);
   //   const [region, setRegion] = useState<Array<Region>>();
-  //   const [style, setStyle] = useState<Array<Style>>([]);
+  const [style, setStyle] = useState<Record<Style, boolean>>(
+    Styles.reduce(
+      (accumulator, current) => ({ ...accumulator, [current]: false }),
+      {} as Record<Style, boolean>
+    )
+  );
+  const [styleFilters, setStyleFilters] = useState<Array<Style>>([]);
+  const [styleDropdown, toggleStyleDropdown] = useState(false);
 
-  console.log(strategyDropdown);
-  console.log(strategyFilters);
+  const [region, setRegion] = useState<Record<Region, boolean>>(
+    Regions.reduce(
+      (accumulator, current) => ({ ...accumulator, [current]: false }),
+      {} as Record<Region, boolean>
+    )
+  );
+  const [regionFilters, setRegionFilters] = useState<Array<Region>>([]);
+  const [regionDropdown, toggleRegionDropdown] = useState(false);
 
   const searchBar = () => (
     <div className="flex items-center gap-4 mb-4 border-b-2 border-blue-900">
@@ -176,6 +172,22 @@ const Table: React.FC<Props> = ({ tableData }) => {
         assetClassDropdown,
         toggleAssetClassDropdown
       )}
+      {filterWidget(
+        'Style',
+        style,
+        setStyle,
+        setStyleFilters,
+        styleDropdown,
+        toggleStyleDropdown
+      )}
+      {filterWidget(
+        'Region',
+        region,
+        setRegion,
+        setRegionFilters,
+        regionDropdown,
+        toggleRegionDropdown
+      )}
     </div>
   );
   return (
@@ -219,6 +231,16 @@ const Table: React.FC<Props> = ({ tableData }) => {
               (product) =>
                 assetClassFilters.length === 0 ||
                 assetClassFilters.includes(product.assetClass)
+            )
+            .filter(
+              (product) =>
+                styleFilters.length === 0 ||
+                styleFilters.includes(product.style)
+            )
+            .filter(
+              (product) =>
+                regionFilters.length === 0 ||
+                regionFilters.includes(product.region)
             )
             .map((product) => (
               <tr key={product.isin} className="text-center">
