@@ -174,20 +174,20 @@ const Table: React.FC<Props> = ({ tableData }) => {
         toggleAssetClassDropdown
       )}
       {multiSelectDropdownFilter(
-        'Style',
-        style,
-        setStyle,
-        setStyleFilters,
-        styleDropdown,
-        toggleStyleDropdown
-      )}
-      {multiSelectDropdownFilter(
         'Region',
         region,
         setRegion,
         setRegionFilters,
         regionDropdown,
         toggleRegionDropdown
+      )}
+      {multiSelectDropdownFilter(
+        'Style',
+        style,
+        setStyle,
+        setStyleFilters,
+        styleDropdown,
+        toggleStyleDropdown
       )}
     </div>
   );
