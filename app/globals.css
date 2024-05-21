@@ -24,4 +24,25 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  ::-webkit-input-placeholder {
+    font-style: italic;
+  }
+  :-moz-placeholder {
+    font-style: italic;
+  }
+  ::-moz-placeholder {
+    font-style: italic;
+  }
+  :-ms-input-placeholder {
+    font-style: italic;
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: 'PT Sans';
+    font-weight: 400;
+    src: url(../public/fonts/PT_Sans/PTSans-Regular.ttf) format('ttf');
+  }
 }

@@ -4,8 +4,7 @@ import { tableData } from '../data/data';
 
 export default function Home() {
   return (
-    <div className="px-24">
-      <h1 className="text-2xl my-9">Product Finder</h1>
+    <div>
       <Table tableData={tableData} />
     </div>
   );

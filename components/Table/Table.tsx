@@ -23,6 +23,7 @@ const tableHeaders = {
   strategy: 'Strategy',
   assetClass: 'Asset className',
   region: 'Region',
+  style: 'Style',
 };
 
 const styles: Array<string> = [
@@ -82,13 +83,13 @@ const Table: React.FC<Props> = ({ tableData }) => {
         width={20}
         height={20}
       />
-      <h2 className="m-a">SEARCH</h2>
+      <h2 className="m-a text-xl text-huguenots-blue-search">SEARCH</h2>
       <input
         type="text"
         placeholder="Enter fund name"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="p-2 "
+        className="p-2 bg-transparent focus:outline-none"
       />
     </div>
   );
@@ -101,7 +102,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
     filterDropdown: boolean,
     toggleFilterDropdown: React.Dispatch<React.SetStateAction<boolean>>
   ) => (
-    <div className="flex gap-4 mb-4">
+    <div className="flex gap-4 mb-9 mt-6 bg-white">
       <div className="flex flex-col gap-2">
         <fieldset>
           <button
@@ -109,7 +110,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
             onClick={() => toggleFilterDropdown((prevState) => !prevState)}
           >
             <div className="flex justify-between items-center">
-              <span className="h-4 text-sm flex items-center">
+              <span className="h-4 text-sm flex items-center font-myriad">
                 {filterName}
               </span>
               <Image
@@ -178,15 +179,27 @@ const Table: React.FC<Props> = ({ tableData }) => {
     </div>
   );
   return (
-    <div className="flex flex-col">
-      {searchBar()}
-      {filterWidgets()}
+    <div className="flex flex-col items-center">
+      <div className="bg-gray-100 px-24 w-full justify-center flex">
+        <div className="max-w-7xl w-full flex flex-col ">
+          <h1 className="text-2xl my-9 text-huguenots-blue-text">
+            Product Finder
+          </h1>
+          {searchBar()}
+          {filterWidgets()}
+        </div>
+      </div>
 
-      <table className="border border-gray-300">
-        <thead>
+      <table className="border-none border-gray-300 mx-24 mt-5 mb-10 max-w-7xl w-full">
+        <thead className="bg-huguenots-blue text-white text-xs h-12">
           <tr>
             {Object.values(tableHeaders).map((header, index) => (
-              <th className="border border-gray-300 p-2" key={index}>
+              <th
+                className={`${
+                  index <= 3 && 'text-left bg-huguenots-light-blue '
+                }"border border-gray-300 p-2 !font-medium"`}
+                key={index}
+              >
                 {header}
               </th>
             ))}
@@ -208,27 +221,32 @@ const Table: React.FC<Props> = ({ tableData }) => {
                 assetClassFilters.includes(product.assetClass)
             )
             .map((product) => (
-              <tr key={product.isin}>
-                <td className="border border-gray-300 p-2">
+              <tr key={product.isin} className="text-center">
+                <td className="border-b border-gray-300 p-2 text-huguenots-blue-text text-left">
                   {product.fundName}
                 </td>
-                <td className="border border-gray-300 p-2">
+                <td className="border-b border-gray-300 p-2">
                   {product.primaryTicker}
                 </td>
-                <td className="border border-gray-300 p-2">
+                <td className="border-b border-gray-300 p-2">
                   {product.incomeTreatment}
                 </td>
-                <td className="border border-gray-300 p-2">
+                <td className="border-b border-r border-gray-300 p-2">
                   {product.shareClassCurrency}
                 </td>
-                <td className="border border-gray-300 p-2">{product.isin}</td>
-                <td className="border border-gray-300 p-2">
+                <td className="border-b border-gray-300 p-2">{product.isin}</td>
+                <td className="border-b border-gray-300 p-2">
                   {product.strategy}
                 </td>
-                <td className="border border-gray-300 p-2">
+                <td className="border-b border-gray-300 p-2">
                   {product.assetClass}
                 </td>
-                <td className="border border-gray-300 p-2">{product.region}</td>
+                <td className="border-b border-gray-300 p-2">
+                  {product.region}
+                </td>
+                <td className="border-b border-gray-300 p-2">
+                  {product.style}
+                </td>
               </tr>
             ))}
         </tbody>
