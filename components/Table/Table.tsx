@@ -1,5 +1,7 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
+import multiSelectDropdownFilter from '../MultiSelectDropdownFilter/MultiSelectDropdownFilter';
 import {
   AssetClass,
   Product,
@@ -13,7 +15,7 @@ import {
   Strategies,
   Styles,
 } from '../../constants/constants';
-import Image from 'next/image';
+
 type Props = {
   tableData: Array<Product>;
 };
@@ -33,7 +35,7 @@ const tableHeaders = {
 const Table: React.FC<Props> = ({ tableData }) => {
   const [search, setSearch] = useState<string>('');
 
-  // set initial state of strategy to be an object with all strategies set to false
+  // set initial state of strategy to be an object with all strategy values set to false
   const [strategy, setStrategy] = useState<Record<Strategy, boolean>>(
     Strategies.reduce(
       (accumulator, current) => ({ ...accumulator, [current]: false }),
@@ -71,6 +73,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
   const [regionFilters, setRegionFilters] = useState<Array<Region>>([]);
   const [regionDropdown, toggleRegionDropdown] = useState(false);
 
+  // TODO: Extract into reusable Search component
   const searchBar = () => (
     <div className="flex items-center gap-4 mb-4 border-b-2 border-blue-900">
       <Image
@@ -88,70 +91,6 @@ const Table: React.FC<Props> = ({ tableData }) => {
         onChange={(e) => setSearch(e.target.value)}
         className="p-2 bg-transparent focus:outline-none"
       />
-    </div>
-  );
-
-  const multiSelectDropdownFilter = <T extends string | number | symbol>(
-    filterName: string,
-    filterState: Record<T, boolean>,
-    setFilterState: React.Dispatch<React.SetStateAction<Record<T, boolean>>>,
-    setFilter: React.Dispatch<React.SetStateAction<Array<T>>>,
-    filterDropdown: boolean,
-    toggleFilterDropdown: React.Dispatch<React.SetStateAction<boolean>>
-  ) => (
-    <div className="flex gap-4 mb-9 mt-6 bg-white">
-      <div className="flex flex-col gap-2">
-        <fieldset>
-          <button
-            className="py-2.5 px-4 border border-gray-300 w-44 g"
-            onClick={() => toggleFilterDropdown((prevState) => !prevState)}
-          >
-            <div className="flex justify-between items-center">
-              <span className="h-4 text-sm flex items-center font-myriad">
-                {filterName}
-              </span>
-              <Image
-                src="/arrow-down-sign.png"
-                alt="Arrow down sign"
-                className={`${filterDropdown && 'rotate-180'}` + ' w-3 h-2.5'}
-                width={3}
-                height={2.5}
-              />
-            </div>
-          </button>
-          <div
-            className={`${
-              !filterDropdown && 'invisible'
-            } absolute bg-white w-44 max-h-56 overflow-y-auto border border-gray-300 rounded z-10 scrollbar shadow-lg`}
-          >
-            {Object.keys(filterState).map((filterState, index) => (
-              <fieldset key={filterState} className="m-2">
-                <input
-                  type="checkbox"
-                  id={filterState}
-                  name={filterState}
-                  value={filterState}
-                  onChange={(e) => {
-                    setFilterState((prevState) => ({
-                      ...prevState,
-                      [filterState]: e.target.checked,
-                    }));
-                    setFilter((prevState) => {
-                      if (e.target.checked) {
-                        return [...prevState, filterState as T];
-                      } else {
-                        return prevState.filter((item) => item !== filterState);
-                      }
-                    });
-                  }}
-                  className="mr-2"
-                />
-                <label htmlFor={filterState}>{filterState}</label>
-              </fieldset>
-            ))}
-          </div>
-        </fieldset>
-      </div>
     </div>
   );
 
@@ -191,6 +130,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
       )}
     </div>
   );
+
   return (
     <div className="flex flex-col items-center">
       <div className="bg-gray-100 px-24 w-full justify-center flex">
@@ -243,6 +183,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
                 regionFilters.includes(product.region)
             )
             .map((product) => (
+              /* TODO: Refactor to be more DRY */
               <tr key={product.isin} className="text-center">
                 <td className="border-b border-gray-300 p-2 text-huguenots-blue-text text-left">
                   {product.fundName}
