@@ -132,7 +132,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
   );
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center text-black">
       <div className="bg-gray-100 px-24 w-full justify-center flex">
         <div className="max-w-7xl w-full flex flex-col ">
           <h1 className="text-2xl my-9 text-huguenots-blue-text">
