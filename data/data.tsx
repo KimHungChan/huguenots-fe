@@ -10,7 +10,7 @@ const tableData: Array<Product> = [
     strategy: 'Value Investing',
     assetClass: 'All Cap',
     region: 'North America',
-    style: 'Active',
+    style: 'Passive',
   },
   {
     fundName: 'Vanguard S&P 500',
@@ -63,8 +63,8 @@ const tableData: Array<Product> = [
     shareClassCurrency: 'USD',
     isin: 'IE00B44Z5B48',
     strategy: 'Value Investing',
-    assetClass: 'Hedge Fund',
-    region: 'Europe',
+    assetClass: 'All Cap',
+    region: 'North America',
     style: 'Quant',
   },
   {
@@ -195,9 +195,9 @@ const tableData: Array<Product> = [
     shareClassCurrency: 'USD',
     isin: 'IE00B3D1F748',
     strategy: 'Value Investing',
-    assetClass: 'Other',
+    assetClass: 'Mid Cap',
     region: 'North America',
-    style: 'Carbon Neutral',
+    style: 'Passive',
   },
   {
     fundName: 'iShares Global Carbon Positive',
@@ -206,9 +206,9 @@ const tableData: Array<Product> = [
     shareClassCurrency: 'USD',
     isin: 'IE00B1XNHC36',
     strategy: 'Value Investing',
-    assetClass: 'Other',
+    assetClass: 'Mid Cap',
     region: 'Europe',
-    style: 'Carbon Negative',
+    style: 'Passive',
   },
 ];
 
