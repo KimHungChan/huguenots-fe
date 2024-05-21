@@ -209,7 +209,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
               <th
                 className={`${
                   index <= 3 && 'text-left bg-huguenots-light-blue '
-                }"border border-gray-300 p-2 !font-medium"`}
+                } p-2 !font-medium`}
                 key={index}
               >
                 {header}
