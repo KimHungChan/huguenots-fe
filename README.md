@@ -1,10 +1,13 @@
 ## Getting Started
 
-### Quick View
+### Preview
 
 ![alt text](image.png)
 
-### Netlify
+### Quick view via Netlify
+https://master--hugue-table.netlify.app/
+
+### Getting Started
 
 In the project directory, you should run:
 
