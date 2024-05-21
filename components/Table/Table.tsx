@@ -2,15 +2,17 @@
 import React, { useState } from 'react';
 import {
   AssetClass,
-  AssetClasses,
   Product,
   Region,
-  Regions,
   Strategy,
   Style,
-  Styles,
-  Strategies,
 } from '../../types/types';
+import {
+  AssetClasses,
+  Regions,
+  Strategies,
+  Styles,
+} from '../../constants/constants';
 import Image from 'next/image';
 type Props = {
   tableData: Array<Product>;
@@ -51,7 +53,6 @@ const Table: React.FC<Props> = ({ tableData }) => {
     []
   );
   const [assetClassDropdown, toggleAssetClassDropdown] = useState(false);
-  //   const [region, setRegion] = useState<Array<Region>>();
   const [style, setStyle] = useState<Record<Style, boolean>>(
     Styles.reduce(
       (accumulator, current) => ({ ...accumulator, [current]: false }),
@@ -90,7 +91,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
     </div>
   );
 
-  const filterWidget = <T extends string | number | symbol>(
+  const multiSelectDropdownFilter = <T extends string | number | symbol>(
     filterName: string,
     filterState: Record<T, boolean>,
     setFilterState: React.Dispatch<React.SetStateAction<Record<T, boolean>>>,
@@ -156,7 +157,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
 
   const filterWidgets = () => (
     <div className="flex gap-8">
-      {filterWidget(
+      {multiSelectDropdownFilter(
         'Strategy',
         strategy,
         setStrategy,
@@ -164,7 +165,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
         strategyDropdown,
         toggleStrategyDropdown
       )}
-      {filterWidget(
+      {multiSelectDropdownFilter(
         'Asset Class',
         assetClass,
         setAssetClass,
@@ -172,7 +173,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
         assetClassDropdown,
         toggleAssetClassDropdown
       )}
-      {filterWidget(
+      {multiSelectDropdownFilter(
         'Style',
         style,
         setStyle,
@@ -180,7 +181,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
         styleDropdown,
         toggleStyleDropdown
       )}
-      {filterWidget(
+      {multiSelectDropdownFilter(
         'Region',
         region,
         setRegion,
@@ -201,7 +202,6 @@ const Table: React.FC<Props> = ({ tableData }) => {
           {filterWidgets()}
         </div>
       </div>
-
       <table className="border-none border-gray-300 mx-24 mt-5 mb-10 max-w-7xl w-full">
         <thead className="bg-huguenots-blue text-white text-xs h-12">
           <tr>
