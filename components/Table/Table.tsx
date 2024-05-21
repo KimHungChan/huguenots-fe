@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import {
   AssetClass,
+  AssetClasses,
   Product,
   Region,
   Strategy,
@@ -48,7 +49,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
   const [search, setSearch] = useState<string>('');
 
   // set initial state of strategy to be an object with all strategies set to false
-  const [strategyState, setStrategyState] = useState<Record<Strategy, boolean>>(
+  const [strategy, setStrategy] = useState<Record<Strategy, boolean>>(
     Strategies.reduce(
       (accumulator, current) => ({ ...accumulator, [current]: false }),
       {} as Record<Strategy, boolean>
@@ -56,7 +57,16 @@ const Table: React.FC<Props> = ({ tableData }) => {
   );
   const [strategyFilters, setStrategyFilters] = useState<Array<Strategy>>([]);
   const [strategyDropdown, toggleStrategyDropdown] = useState(false);
-  //   const [assetClass, setAssetClass] = useState<Array<AssetClass>>([]);
+  const [assetClass, setAssetClass] = useState<Record<AssetClass, boolean>>(
+    AssetClasses.reduce(
+      (accumulator, current) => ({ ...accumulator, [current]: false }),
+      {} as Record<AssetClass, boolean>
+    )
+  );
+  const [assetClassFilters, setAssetClassFilters] = useState<Array<AssetClass>>(
+    []
+  );
+  const [assetClassDropdown, toggleAssetClassDropdown] = useState(false);
   //   const [region, setRegion] = useState<Array<Region>>();
   //   const [style, setStyle] = useState<Array<Style>>([]);
 
@@ -85,15 +95,18 @@ const Table: React.FC<Props> = ({ tableData }) => {
 
   const filterWidget = <T extends string | number | symbol>(
     filterName: string,
+    filterState: Record<T, boolean>,
     setFilterState: React.Dispatch<React.SetStateAction<Record<T, boolean>>>,
-    setFilter: React.Dispatch<React.SetStateAction<Array<T>>>
+    setFilter: React.Dispatch<React.SetStateAction<Array<T>>>,
+    filterDropdown: boolean,
+    toggleFilterDropdown: React.Dispatch<React.SetStateAction<boolean>>
   ) => (
     <div className="flex gap-4 mb-4">
       <div className="flex flex-col gap-2">
         <fieldset>
           <button
             className="py-2.5 px-4 border border-gray-300 w-44 g"
-            onClick={() => toggleStrategyDropdown((prevState) => !prevState)}
+            onClick={() => toggleFilterDropdown((prevState) => !prevState)}
           >
             <div className="flex justify-between items-center">
               <span className="h-4 text-sm flex items-center">
@@ -102,7 +115,7 @@ const Table: React.FC<Props> = ({ tableData }) => {
               <Image
                 src="/arrow-down-sign.png"
                 alt="Arrow down sign"
-                className={`${strategyDropdown && 'rotate-180'}` + ' w-3 h-2.5'}
+                className={`${filterDropdown && 'rotate-180'}` + ' w-3 h-2.5'}
                 width={3}
                 height={2.5}
               />
@@ -110,10 +123,10 @@ const Table: React.FC<Props> = ({ tableData }) => {
           </button>
           <div
             className={`${
-              !strategyDropdown && 'invisible'
+              !filterDropdown && 'invisible'
             } absolute bg-white w-44 max-h-56 overflow-y-auto border border-gray-300 rounded z-10 scrollbar shadow-lg`}
           >
-            {Object.keys(strategyState).map((filterState, index) => (
+            {Object.keys(filterState).map((filterState, index) => (
               <fieldset key={filterState} className="m-2">
                 <input
                   type="checkbox"
@@ -145,7 +158,24 @@ const Table: React.FC<Props> = ({ tableData }) => {
   );
 
   const filterWidgets = () => (
-    <>{filterWidget('STRATEGY', setStrategyState, setStrategyFilters)}</>
+    <div className="flex gap-8">
+      {filterWidget(
+        'Strategy',
+        strategy,
+        setStrategy,
+        setStrategyFilters,
+        strategyDropdown,
+        toggleStrategyDropdown
+      )}
+      {filterWidget(
+        'Asset Class',
+        assetClass,
+        setAssetClass,
+        setAssetClassFilters,
+        assetClassDropdown,
+        toggleAssetClassDropdown
+      )}
+    </div>
   );
   return (
     <div className="flex flex-col">
@@ -171,6 +201,11 @@ const Table: React.FC<Props> = ({ tableData }) => {
               (product) =>
                 strategyFilters.length === 0 ||
                 strategyFilters.includes(product.strategy)
+            )
+            .filter(
+              (product) =>
+                assetClassFilters.length === 0 ||
+                assetClassFilters.includes(product.assetClass)
             )
             .map((product) => (
               <tr key={product.isin}>

@@ -73,6 +73,28 @@ export type Strategy =
   | 'Covered Call Writing'
   | 'Other';
 
+export const AssetClasses = [
+  'Equity',
+  'Fixed Income',
+  'Property',
+  'Cash',
+  'Commodities',
+  'Multi Asset',
+  'Derivatives',
+  'Hedge Fund',
+  'Private Equity',
+  'Infrastructure',
+  'Foreign currencies',
+  'Cryptocurrency',
+  'Money Market',
+  'Real Estate',
+  'Venture Capital',
+  'Private Debt',
+  'Credit',
+  'Convertible',
+  'Other',
+];
+
 export type AssetClass =
   | 'Equity'
   | 'Fixed Income'
